@@ -1,0 +1,22 @@
+{
+  "name": "hazi-feladat-nuxt-nest-monorepo",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^7.0.0",
+    "turbo": "^2.7.4",
+    "typescript": "^5.9.3"
+  }
+}
