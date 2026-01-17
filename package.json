@@ -12,7 +12,8 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "build:types": "turbo build --filter ./packages/types"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^7.0.0",
