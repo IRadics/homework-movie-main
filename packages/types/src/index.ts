@@ -9,3 +9,14 @@ export interface Cinema {
   name: string
   city: string
 }
+
+export interface Movie {
+  id: number
+  title: string
+  releaseDate: string
+  posterUrl: string
+}
+
+export interface MovieDetails extends Movie {
+  overview: string
+}
