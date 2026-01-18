@@ -1,12 +1,15 @@
 import type { Movie } from '@repo/types'
 import { env } from 'node:process'
 import { HttpService } from '@nestjs/axios'
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common'
+import { HttpException, Injectable, InternalServerErrorException } from '@nestjs/common'
 import { AxiosError } from 'axios'
 import { catchError, firstValueFrom, map, of } from 'rxjs'
 import { CinemasService } from 'src/cinemas/cinemas.service'
 import { TMDB_Error, TMDB_Error_Code, TMDB_Movie, TMDB_PagedRespose } from 'src/types/tmdb'
 import { AddMovieInterestDto } from './dto/add-movie-interest.dto'
+
+// TODO: replace with TMDB API configuration
+const imagePath = 'https://image.tmdb.org/t/p/w500/'
 
 @Injectable()
 export class MoviesService {
@@ -24,7 +27,7 @@ export class MoviesService {
             id: movie.id,
             title: movie.title,
             releaseDate: movie.release_date,
-            posterUrl: movie.poster_path,
+            posterUrl: `${imagePath}${movie.poster_path}`,
           }))),
       ))
   }
@@ -36,13 +39,14 @@ export class MoviesService {
       },
     })
       .pipe(
-        map(response => (
+        map(response => response.data),
+        map(movie => (
           {
-            id: response.data.id,
-            title: response.data.title,
-            overview: response.data.overview,
-            releaseDate: response.data.release_date,
-            posterUrl: response.data.poster_path,
+            id: movie.id,
+            title: movie.title,
+            overview: movie.overview,
+            releaseDate: movie.release_date,
+            posterUrl: `${imagePath}${movie.poster_path}`,
           }
         )),
         catchError((error: AxiosError<TMDB_Error>) => {
@@ -57,12 +61,12 @@ export class MoviesService {
   async addInterest(_id: string, _interest: AddMovieInterestDto) {
     const movie = await this.findById(_id)
     if (!movie) {
-      throw new BadRequestException('Movie not found')
+      throw new HttpException({ error: 'Film nem található' }, 400)
     }
 
     const cinema = this.cinemasService.findById(_interest.cinemaId)
     if (!cinema) {
-      throw new BadRequestException('Cinema not found')
+      throw new HttpException({ error: 'Mozi nem található' }, 400)
     }
 
     console.log(`AddInterest movie id: ${_id} \n`, `Payload: \n`, JSON.stringify(_interest, null, 2))
