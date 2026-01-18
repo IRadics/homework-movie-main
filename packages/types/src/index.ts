@@ -20,3 +20,10 @@ export interface Movie {
 export interface MovieDetails extends Movie {
   overview: string
 }
+
+export interface AddMovieInterestDto {
+  email: string
+  ticketCount: number
+  cinemaId: string
+  movieId: number
+}
