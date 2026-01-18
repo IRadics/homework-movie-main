@@ -32,6 +32,13 @@ npm install -g pnpm
 pnpm install
 ```
 
+## Környezeti változók
+`apps/api` alatt található NestJS backend az alábbi környezeti változókat igényli a TMDB API elérés érdekében:
+```
+TMDB_API_URL = https://api.themoviedb.org/3
+TMDB_API_KEY = 
+```
+
 ## Fejlesztés
 
 ```bash
