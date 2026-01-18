@@ -1,4 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post } from '@nestjs/common'
+import { AddMovieInterestDto } from './dto/add-movie-interest.dto'
 import { MoviesService } from './movies.service'
 
 @Controller('movies')
@@ -13,5 +14,10 @@ export class MoviesController {
   @Get(':id')
   async findById(@Param('id') id: string) {
     return await this.moviesService.findById(id)
+  }
+
+  @Post(':id/interest')
+  async addInterest(@Param('id') id: string, @Body() interest: AddMovieInterestDto) {
+    return await this.moviesService.addInterest(id, interest)
   }
 }
