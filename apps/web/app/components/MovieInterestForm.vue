@@ -78,7 +78,7 @@ onMounted(() => {
   <Form
     v-slot="$form"
     :initial-values="initialValue"
-    style="display: flex; flex-direction: column; gap: 12px; width: 300px;"
+    style="display: flex; flex-direction: column; gap: 12px; max-width: 500px; min-width: 300px; margin: 0 auto;"
     :resolver="resolver"
     :disabled="submitting"
     validate-on-submit

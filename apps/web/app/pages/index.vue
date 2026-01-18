@@ -19,17 +19,19 @@ onMounted(() => {
         </template>
       </Card>
     </div>
-    <div v-else style="display: flex; flex-wrap: wrap; gap: 24px;">
-      <NuxtLink v-for="movie in movies" :key="movie.id" style="width: 200px; " :to="`/movie/${movie.id}`" class="revert-hyperlink">
+    <div v-else style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
+      <NuxtLink v-for="movie in movies" :key="movie.id" style="width: 250px; " :to="`/movie/${movie.id}`" class="revert-hyperlink">
         <Card style="height: 100%;">
           <template #header>
             <img style="width: 100%;" :src="movie.posterUrl">
           </template>
           <template #title>
-            {{ movie.title }}
+            <span style="font-weight: bold;">{{ movie.title }}</span>
           </template>
-          <template #content>
-            Kiadás éve: {{ formatDate(movie.releaseDate) }}
+          <template #footer>
+            <div style="margin-top: auto;">
+              Kiadás éve: {{ formatDate(movie.releaseDate) }}
+            </div>
           </template>
         </Card>
       </NuxtLink>
@@ -40,5 +42,15 @@ onMounted(() => {
 <style lang="css" scoped>
 .card-error {
   border: 1px solid red;
+}
+
+:deep(.p-card) {
+  .p-card-body {
+    height: 100%;
+  }
+
+  .p-card-footer {
+    margin-top: auto;
+  }
 }
 </style>
